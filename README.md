@@ -1,1 +1,36 @@
 Simple HTTP Server from [Launch School](https://launchschool.com/)
+
+Run the server by typing the following command:
+
+```
+/usr/local/bin/bash http_server.sh
+```
+
+If you are using Bash version >= 4, then you can add `#!/bin/bash` to the top of the file, and run the server by first adding execute permissions, and then running the file.
+
+```
+chmod +x http_server.sh
+```
+
+and then
+
+```
+./http_server.sh
+```
+
+Finally, make a call to the server by running the following command to see the output:
+
+```
+nc -v localhost 2345
+Connection to localhost port 2345 [tcp/dbm] succeeded!
+GET /lion.html
+HTTP/1.1 200 OK
+
+...html output
+
+GET /
+HTTP/1.1 404 Not Found
+
+POST /lion.html
+HTTP/1.1 400 Bad Request
+```
