@@ -20,7 +20,20 @@
 function server () {
   while true
   do
-    read method path version
+    # read method path version
+    message_arr=()
+    check=true
+    while $check
+    do
+      read line
+      message_arr+=($line)
+      if [[ "${#line}" -eq 1 ]]
+      then
+        check=false
+      fi
+    done
+    method=${message_arr[0]}
+    path=${message_arr[1]}
     if [[ "$method" = 'GET' ]]
     then
       if [[ -f "./www/$path" ]]
