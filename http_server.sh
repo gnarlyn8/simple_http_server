@@ -1,22 +1,3 @@
-# function server () {
-
-#   while true
-#   do
-#     read method path version
-#     if [[ $method = 'GET' ]]
-#     then
-#       if [[ -f "./www/$path" ]]
-#       then
-#         echo -ne 'HTTP/1.1 200 OK\r\n\r\n'; cat "./www/$path"
-#       else
-#         echo -ne 'HTTP/1.1 404 Not Found\r\n\r\n'
-#       fi
-#     else
-#       echo -ne 'HTTP/1.1 400 Bad Request\r\n\r\n'
-#     fi
-#   done
-# }
-
 function server () {
   while true
   do
@@ -38,12 +19,12 @@ function server () {
     then
       if [[ -f "./www/$path" ]]
       then
-        echo -ne 'HTTP/1.1 200 OK\r\n\r\n'; cat "./www/$path"
+        echo -ne 'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: $(wc -c <'./www/'$path)\r\n\r\n'; cat "./www/$path"
       else
-        echo -ne 'HTTP/1.1 404 Not Found\r\n\r\n'
+        echo -ne 'HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n'
       fi
     else
-      echo -ne 'HTTP/1.1 400 Bad Request\r\n\r\n'
+      echo -ne 'HTTP/1.1 400 Bad Request\r\nContent-Length: 0\r\n\r\n'
     fi
   done
 }

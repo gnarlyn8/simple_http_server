@@ -18,7 +18,7 @@ and then
 ./http_server.sh
 ```
 
-Finally, make a call to the server by running the following command to see the output:
+To connect using the single line option:
 
 ```
 nc -v localhost 2345
@@ -34,3 +34,7 @@ HTTP/1.1 404 Not Found
 POST /lion.html
 HTTP/1.1 400 Bad Request
 ```
+
+To connect to the server via web browser, start the server and then visit the following URL:
+
+`http://localhost:2345/leopard.html`
