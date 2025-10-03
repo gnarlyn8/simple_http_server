@@ -8,8 +8,7 @@ function server () {
     do
       read line
       message_arr+=($line)
-      if [[ "${#line}" -eq 1 ]]
-      then
+      if [[ -z "$line" || "$line" == $'\r' ]]; then
         check=false
       fi
     done
@@ -19,7 +18,8 @@ function server () {
     then
       if [[ -f "./www/$path" ]]
       then
-        echo -ne 'HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: $(wc -c <'./www/'$path)\r\n\r\n'; cat "./www/$path"
+        content_length=$(wc -c < "./www/$path")
+        echo -ne "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\nContent-Length: $content_length\r\n\r\n"; cat "./www/$path"
       else
         echo -ne 'HTTP/1.1 404 Not Found\r\nContent-Length: 0\r\n\r\n'
       fi
